@@ -33,9 +33,57 @@
             }
         </tbody>
     </table>
+
+    //Pagination
+    if (Model.Pager.EndPage > 1)
+    {
+        <nav>
+            <ul class="pagination">
+                @if (Model.Pager.CurrentPage > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Index", "AccomodationPackages")">
+                            <i class="fas fa-angle-double-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Index", "AccomodationPackages", new { pageNo = Model.Pager.CurrentPage - 1, searchTerm = Model.SearchTerm, accomodationTypeID = Model.AccomodationTypeId })">
+                            <i class="fas fa-angle-left"></i>
+                            Prev
+                        </a>
+                    </li>
+                }
+
+                @for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+                {
+                    <li class="page-item @(page == Model.Pager.CurrentPage ? "active" : "")">
+                        <a class="page-link" href="@Url.Action("Index", "AccomodationPackages", new { pageNo = page, searchTerm = Model.SearchTerm, accomodationTypeID = Model.AccomodationTypeId })">@page</a>
+                    </li>
+                }
+
+                @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Index", "AccomodationPackages", new { pageNo = Model.Pager.CurrentPage + 1, searchTerm = Model.SearchTerm, accomodationTypeID = Model.AccomodationTypeId })">
+                            Next
+                            <i class="fas fa-angle-right"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Index", "AccomodationPackages", new { pageNo = Model.Pager.TotalPages, searchTerm = Model.SearchTerm, accomodationTypeID = Model.AccomodationTypeId })">
+                            <i class="fas fa-angle-double-right"></i>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    }
+
+
 }
-else { 
+else
+{
     <div class="alert alert-warning" role="alert">
-        Sorry ! No records exist. 
+        Sorry ! No records exist.
     </div>
 }

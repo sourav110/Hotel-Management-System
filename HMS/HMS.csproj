@@ -187,6 +187,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\PageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Dashboard\Contents\css\simple-sidebar.css" />
