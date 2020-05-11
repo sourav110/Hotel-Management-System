@@ -11,13 +11,16 @@ namespace HMS.Areas.Dashboard.Controllers
 {
     public class AccomodationPackagesController : Controller
     {
-        AccomodationPackageService AccomodationPackageService = new AccomodationPackageService();
+        AccomodationPackageService accomodationPackageService = new AccomodationPackageService();
+        AccomodationTypeService accomodationTypeService = new AccomodationTypeService();
         // GET: Dashboard/AccomodationPackages
-        public ActionResult Index(string searchTerm)
+        public ActionResult Index(string searchTerm, int? accomodationTypeId)
         {
             AccomodationPackagesListingViewModel model = new AccomodationPackagesListingViewModel();
-            model.AccomodationPackages = AccomodationPackageService.SearchAccomodationPackages(searchTerm);
-
+            model.AccomodationPackages = accomodationPackageService.SearchAccomodationPackages(searchTerm, accomodationTypeId);
+            model.AccomodationTypes = accomodationTypeService.GetAllAccomodationTypes();
+            model.AccomodationTypeId = accomodationTypeId;
+                
             return View(model);
         }
 
@@ -28,12 +31,15 @@ namespace HMS.Areas.Dashboard.Controllers
             if (id.HasValue)
             {
                 // edit
-                var accomodationPackage = AccomodationPackageService.GetAccomodationPackageById(id.Value);
+                var accomodationPackage = accomodationPackageService.GetAccomodationPackageById(id.Value);
+
                 model.Id = accomodationPackage.Id;
+                model.AccomodationTypeId = accomodationPackage.AccomodationTypeId;
                 model.Name = accomodationPackage.Name;
                 model.NoOfRoom = accomodationPackage.NoOfRoom;
                 model.FeePerNight = accomodationPackage.FeePerNight;
             }
+            model.AccomodationTypes = accomodationTypeService.GetAllAccomodationTypes();
             return PartialView("_Action", model);
         }
 
@@ -46,23 +52,26 @@ namespace HMS.Areas.Dashboard.Controllers
             if (model.Id > 0)
             {
                 // edit
-                var accomodationPackage = AccomodationPackageService.GetAccomodationPackageById(model.Id);
+                var accomodationPackage = accomodationPackageService.GetAccomodationPackageById(model.Id);
+
+                accomodationPackage.AccomodationTypeId = model.AccomodationTypeId;
                 accomodationPackage.Name = model.Name;
                 accomodationPackage.NoOfRoom = model.NoOfRoom;
                 accomodationPackage.FeePerNight = model.FeePerNight;
 
-                result = AccomodationPackageService.UpdateAccomodationPackage(accomodationPackage);
+                result = accomodationPackageService.UpdateAccomodationPackage(accomodationPackage);
             }
             else
             {
                 // create
                 AccomodationPackage accomodationPackage = new AccomodationPackage();
 
+                accomodationPackage.AccomodationTypeId = model.AccomodationTypeId;
                 accomodationPackage.Name = model.Name;
                 accomodationPackage.NoOfRoom = model.NoOfRoom;
                 accomodationPackage.FeePerNight = model.FeePerNight;
 
-                result = AccomodationPackageService.SaveAccomodationPackage(accomodationPackage);
+                result = accomodationPackageService.SaveAccomodationPackage(accomodationPackage);
             }
 
             if (result)
@@ -82,7 +91,7 @@ namespace HMS.Areas.Dashboard.Controllers
         {
             AccomodationPackagesActionViewModel model = new AccomodationPackagesActionViewModel();
 
-            var accomodationPackage = AccomodationPackageService.GetAccomodationPackageById(id);
+            var accomodationPackage = accomodationPackageService.GetAccomodationPackageById(id);
             model.Id = accomodationPackage.Id;
 
             return PartialView("_Delete", model);
@@ -94,9 +103,9 @@ namespace HMS.Areas.Dashboard.Controllers
             JsonResult json = new JsonResult();
             var result = false;
 
-            var accomodationPackage = AccomodationPackageService.GetAccomodationPackageById(model.Id);
+            var accomodationPackage = accomodationPackageService.GetAccomodationPackageById(model.Id);
 
-            result = AccomodationPackageService.DeleteAccomodationPackage(accomodationPackage);
+            result = accomodationPackageService.DeleteAccomodationPackage(accomodationPackage);
 
             if (result)
             {

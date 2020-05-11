@@ -14,7 +14,23 @@
     <div class="offset-2 col-lg-8">
         <form>
             <div class="input-group">
-                <input type="text" name="searchTerm" class="form-control" placeholder="Enter keywords to search" required>
+                <input type="text" name="searchTerm" class="form-control" placeholder="Enter keywords to search">
+                @if(Model.AccomodationTypes != null && Model.AccomodationTypes.Count() > 0)
+                {
+                    <select name="AccomodationTypeId" class="form-control">
+                        <option value="0">
+                            Select Type
+                        </option>
+
+                        @foreach(var accomodationType in Model.AccomodationTypes)
+                        {
+                            <option value="@accomodationType.Id" @(accomodationType.Id == Model.AccomodationTypeId ? "selected" : string.Empty)>
+                                @accomodationType.Name
+                            </option>
+                        }
+                    </select>
+                }
+                
                 <div class="input-group-append">
                     <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search mr-1"></i>Search</button>
                     <a class="btn btn-outline-secondary" href="@Url.Action("Index", "AccomodationPackages")"><i class="fas fa-redo-alt mr-1"></i>Reset</a>

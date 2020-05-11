@@ -6,6 +6,7 @@
         <thead class="thead-dark">
             <tr>
                 <th>Name</th>
+                <th>Type</th>
                 <th>No of Rooms</th>
                 <th>Fee per Night</th>
                 <th>Actions</th>
@@ -16,6 +17,12 @@
             {
                 <tr>
                     <td>@accomodationPackage.Name</td>
+                    <td>
+                        @if (accomodationPackage.AccomodationType != null)
+                        {
+                            @accomodationPackage.AccomodationType.Name
+                        }
+                    </td>
                     <td>@accomodationPackage.NoOfRoom</td>
                     <td>@accomodationPackage.FeePerNight</td>
                     <td>

@@ -18,11 +18,13 @@ namespace HMS.Services
 
         public AccomodationPackage GetAccomodationPackageById(int id)
         {
-            var _context = new HMSContext();
-            return _context.AccomodationPackages.Find(id);
+            using (var _context = new HMSContext())
+            {
+                return _context.AccomodationPackages.Find(id);
+            }
         }
 
-        public IEnumerable<AccomodationPackage> SearchAccomodationPackages(string searchTerm)
+        public IEnumerable<AccomodationPackage> SearchAccomodationPackages(string searchTerm, int? accomodationTypeId)
         {
             var _context = new HMSContext();
             var accomodationPackages = _context.AccomodationPackages.AsQueryable();
@@ -30,6 +32,10 @@ namespace HMS.Services
             if (!string.IsNullOrEmpty(searchTerm))
             {
                 accomodationPackages = accomodationPackages.Where(a => a.Name.ToLower().Contains(searchTerm.ToLower()));
+            }
+            if (accomodationTypeId.HasValue && accomodationTypeId.Value > 0)
+            {
+                accomodationPackages = accomodationPackages.Where(a => a.AccomodationTypeId == accomodationTypeId.Value);
             }
             return accomodationPackages.ToList();
         }
