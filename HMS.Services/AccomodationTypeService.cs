@@ -23,6 +23,18 @@ namespace HMS.Services
             return _context.AccomodationTypes.Find(id);
         }
 
+        public IEnumerable<AccomodationType> SearchAccomodationTypes(string searchTerm)
+        {
+            var _context = new HMSContext();
+            var accomodationTypes = _context.AccomodationTypes.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                accomodationTypes = accomodationTypes.Where(a => a.Name.ToLower().Contains(searchTerm.ToLower()));
+            }
+            return accomodationTypes.ToList();
+        }
+
         public bool SaveAccomodationType(AccomodationType accomodationType)
         {
             var _context = new HMSContext();
