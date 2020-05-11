@@ -1,4 +1,4 @@
-﻿@model HMS.Areas.Dashboard.ViewModels.AccomodationTypesActionViewModel
+﻿@model HMS.Areas.Dashboard.ViewModels.AccomodationPackagesActionViewModel
 
 @if (Model != null)
 {
@@ -7,11 +7,11 @@
             <h5 class="modal-title" id="actionModalLabel">
                 @if (Model.Id > 0)
                 {
-                    <span>Edit Accomodatioan Type</span>
+                    <span>Edit Accomodatioan Package</span>
                 }
                 else
                 {
-                    <span>Create Accomodation Type</span>
+                    <span>Create Accomodation Package</span>
                 }
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -20,15 +20,20 @@
         </div>
         <div class="modal-body">
             <form id="actionForm">
-                <input type="hidden"  name="Id" value="@Model.Id"/>
+                <input type="hidden" name="Id" value="@Model.Id" />
                 <div class="form-group">
                     <label>Name</label>
-                    <input type="text" class="form-control" name="Name" value="@Model.Name" placeholder="Enter Accomodation Type Name" />
+                    <input type="text" class="form-control" name="Name" value="@Model.Name" placeholder="Enter Accomodation Package Name" />
                 </div>
 
                 <div class="form-group">
-                    <label>Description</label>
-                    <textarea type="text" class="form-control" name="Description" placeholder="Enter Accomodation Type Description">@Model.Description</textarea> 
+                    <label>No. of Rooms</label>
+                    <input type="text" class="form-control" name="NoOfRoom" value="@Model.NoOfRoom" placeholder="Enter number of Rooms" />
+                </div>
+
+                <div class="form-group">
+                    <label>Fee per Night</label>
+                    <input type="text" class="form-control" name="FeePerNight" value="@Model.FeePerNight" placeholder="Enter fee per Night" />
                 </div>
             </form>
             <div class="errorDiv text-danger">
@@ -45,7 +50,7 @@
 <script>
     $("#actionButton").click(function () {
         $.ajax({
-            url: '@Url.Action("Action", "AccomodationTypes")',
+            url: '@Url.Action("Action", "AccomodationPackages")',
             type: "post",
             data: $("#actionForm").serialize()
         }).done(function (response) {

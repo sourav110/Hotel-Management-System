@@ -172,6 +172,8 @@
     <Compile Include="Areas\Dashboard\Controllers\AccomodationTypesController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Dashboard\DashboardAreaRegistration.cs" />
+    <Compile Include="Areas\Dashboard\ViewModels\AccomodationPackagesActionViewModel.cs" />
+    <Compile Include="Areas\Dashboard\ViewModels\AccomodationPackagesListingViewModel.cs" />
     <Compile Include="Areas\Dashboard\ViewModels\AccomodationTypesActionViewModel.cs" />
     <Compile Include="Areas\Dashboard\ViewModels\AccomodationTypesListingViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -236,6 +238,10 @@
     <Content Include="Areas\Dashboard\Views\AccomodationTypes\_Listing.cshtml" />
     <Content Include="Areas\Dashboard\Views\AccomodationTypes\_Action.cshtml" />
     <Content Include="Areas\Dashboard\Views\AccomodationTypes\_Delete.cshtml" />
+    <Content Include="Areas\Dashboard\Views\AccomodationPackages\_Action.cshtml" />
+    <Content Include="Areas\Dashboard\Views\AccomodationPackages\_Delete.cshtml" />
+    <Content Include="Areas\Dashboard\Views\AccomodationPackages\_Listing.cshtml" />
+    <Content Include="Areas\Dashboard\Views\AccomodationPackages\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -285,7 +291,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Dashboard\Data\" />
-    <Folder Include="Areas\Dashboard\Views\AccomodationPackages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
