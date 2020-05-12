@@ -169,9 +169,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Dashboard\Controllers\AccomodationPackagesController.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\AccomodationsController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\AccomodationTypesController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Dashboard\DashboardAreaRegistration.cs" />
+    <Compile Include="Areas\Dashboard\ViewModels\AccomodationsActionViewModel.cs" />
+    <Compile Include="Areas\Dashboard\ViewModels\AccomodationsListingViewModel.cs" />
     <Compile Include="Areas\Dashboard\ViewModels\AccomodationPackagesActionViewModel.cs" />
     <Compile Include="Areas\Dashboard\ViewModels\AccomodationPackagesListingViewModel.cs" />
     <Compile Include="Areas\Dashboard\ViewModels\AccomodationTypesActionViewModel.cs" />
@@ -243,6 +246,10 @@
     <Content Include="Areas\Dashboard\Views\AccomodationPackages\_Delete.cshtml" />
     <Content Include="Areas\Dashboard\Views\AccomodationPackages\_Listing.cshtml" />
     <Content Include="Areas\Dashboard\Views\AccomodationPackages\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Accomodations\_Action.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Accomodations\_Delete.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Accomodations\_Listing.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Accomodations\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
