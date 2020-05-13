@@ -40,3 +40,4 @@ G:\T\Gul\HMS\HMS.Data\obj\Debug\HMS.Data.csproj.GenerateResource.cache
 G:\T\Gul\HMS\HMS.Data\obj\Debug\HMS.Data.csproj.CopyComplete
 G:\T\Gul\HMS\HMS.Data\obj\Debug\HMS.Data.dll
 G:\T\Gul\HMS\HMS.Data\obj\Debug\HMS.Data.pdb
+G:\T\Gul\HMS\HMS.Data\obj\Debug\HMS.Data.Migrations.addedUserProperties.resources

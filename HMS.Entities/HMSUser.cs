@@ -18,5 +18,10 @@ namespace HMS.Entities
             // Add custom user claims here
             return userIdentity;
         }
+
+        public string FullName { get; set; }
+        public string Country { get; set; }
+        public string City { get; set; }
+        public string Address { get; set; }
     }
 }

@@ -40,3 +40,16 @@ G:\T\Gul\HMS\HMS.Services\obj\Debug\HMS.Services.csprojAssemblyReference.cache
 G:\T\Gul\HMS\HMS.Services\obj\Debug\HMS.Services.csproj.CopyComplete
 G:\T\Gul\HMS\HMS.Services\obj\Debug\HMS.Services.dll
 G:\T\Gul\HMS\HMS.Services\obj\Debug\HMS.Services.pdb
+G:\T\Gul\HMS\HMS.Services\bin\Debug\Microsoft.AspNet.Identity.Owin.dll
+G:\T\Gul\HMS\HMS.Services\bin\Debug\Microsoft.Owin.dll
+G:\T\Gul\HMS\HMS.Services\bin\Debug\Microsoft.Owin.Security.Cookies.dll
+G:\T\Gul\HMS\HMS.Services\bin\Debug\Microsoft.Owin.Security.dll
+G:\T\Gul\HMS\HMS.Services\bin\Debug\Microsoft.Owin.Security.OAuth.dll
+G:\T\Gul\HMS\HMS.Services\bin\Debug\Newtonsoft.Json.dll
+G:\T\Gul\HMS\HMS.Services\bin\Debug\Owin.dll
+G:\T\Gul\HMS\HMS.Services\bin\Debug\Microsoft.AspNet.Identity.Owin.xml
+G:\T\Gul\HMS\HMS.Services\bin\Debug\Microsoft.Owin.xml
+G:\T\Gul\HMS\HMS.Services\bin\Debug\Microsoft.Owin.Security.xml
+G:\T\Gul\HMS\HMS.Services\bin\Debug\Microsoft.Owin.Security.Cookies.xml
+G:\T\Gul\HMS\HMS.Services\bin\Debug\Microsoft.Owin.Security.OAuth.xml
+G:\T\Gul\HMS\HMS.Services\bin\Debug\Newtonsoft.Json.xml
