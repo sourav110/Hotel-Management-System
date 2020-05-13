@@ -81,6 +81,7 @@
     <Compile Include="AccomodationPackageService.cs" />
     <Compile Include="AccomodationService.cs" />
     <Compile Include="AccomodationTypeService.cs" />
+    <Compile Include="HMSRoleManager.cs" />
     <Compile Include="HMSSignInManager.cs" />
     <Compile Include="HMSUserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

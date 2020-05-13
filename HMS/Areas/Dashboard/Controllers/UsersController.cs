@@ -18,15 +18,17 @@ namespace HMS.Areas.Dashboard.Controllers
 
         private HMSSignInManager _signInManager;
         private HMSUserManager _userManager;
+        private HMSRoleManager _roleManager;
 
         public UsersController()
         {
         }
 
-        public UsersController(HMSUserManager userManager, HMSSignInManager signInManager)
+        public UsersController(HMSUserManager userManager, HMSSignInManager signInManager, HMSRoleManager roleManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            RoleManager = roleManager;
         }
 
         public HMSSignInManager SignInManager
@@ -53,6 +55,17 @@ namespace HMS.Areas.Dashboard.Controllers
             }
         }
 
+        public HMSRoleManager RoleManager
+        {
+            get
+            {
+                return _roleManager ?? HttpContext.GetOwinContext().Get<HMSRoleManager>();
+            }
+            private set
+            {
+                _roleManager = value;
+            }
+        }
 
 
         // GET: Dashboard/Users
@@ -64,9 +77,8 @@ namespace HMS.Areas.Dashboard.Controllers
             UsersListingViewModel model = new UsersListingViewModel();
             model.SearchTerm = searchTerm;
             model.RoleId = roleId;
+            model.Roles = RoleManager.Roles.ToList();
 
-
-            //model.Roles = accomodationService.SearchAccomodations(searchTerm, accomodationPackageId, pageNo.Value, recordSize);
             model.Users = SearchUsers(searchTerm, roleId, pageNo.Value, recordSize);
 
             var totalRecords = SearchUsersCount(searchTerm, roleId);
@@ -181,7 +193,7 @@ namespace HMS.Areas.Dashboard.Controllers
 
             var user = await UserManager.FindByIdAsync(id);
             model.Id = user.Id;
-
+             
             return PartialView("_Delete", model);
         }
 
@@ -195,15 +207,70 @@ namespace HMS.Areas.Dashboard.Controllers
             {
                 // edit
                 var user = await UserManager.FindByIdAsync(model.Id);
-
+                  
                 result = await UserManager.DeleteAsync(user);
                 
-                json.Data = new { Success = result.Succeeded, Message = string.Join(" ", result.Errors) };
+                json.Data = new { Success = result.Succeeded, Message = string.Join(", ", result.Errors) };
             }
             else
             {
                 json.Data = new { Success = false, Message = "Invaild User" };
             }
+
+            return json;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> UserRole(string id)
+        {
+            UserRoleViewModel model = new UserRoleViewModel();
+            
+            model.Roles = RoleManager.Roles.ToList();
+
+            var user = await UserManager.FindByIdAsync(id);
+            var userRoleIds = user.Roles.Select(x => x.RoleId).ToList();
+
+            model.UserRoles = RoleManager.Roles.Where(x => userRoleIds.Contains(x.Id)).ToList();
+
+            return PartialView("_UserRole", model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UserRole(UsersActionViewModel model)
+        {
+            JsonResult json = new JsonResult();
+            IdentityResult result = null;
+
+            if (!string.IsNullOrEmpty(model.Id))
+            {
+                // edit
+                var user = await UserManager.FindByIdAsync(model.Id);
+
+                user.FullName = model.FullName;
+                user.Email = model.Email;
+                user.UserName = model.UserName;
+                user.Country = model.Country;
+                user.City = model.City;
+                user.Address = model.Address;
+
+                result = await UserManager.UpdateAsync(user);
+            }
+            else
+            {
+                // create
+                var user = new HMSUser();
+
+                user.FullName = model.FullName;
+                user.Email = model.Email;
+                user.UserName = model.UserName;
+                user.Country = model.Country;
+                user.City = model.City;
+                user.Address = model.Address;
+
+                result = await UserManager.CreateAsync(user);
+            }
+
+            json.Data = new { Success = result.Succeeded, Message = string.Join(" ", result.Errors) };
 
             return json;
         }
