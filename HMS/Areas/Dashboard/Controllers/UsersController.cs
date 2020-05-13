@@ -98,7 +98,7 @@ namespace HMS.Areas.Dashboard.Controllers
 
             if (!string.IsNullOrEmpty(roleId))
             {
-                //users = users.Where(a => a.Email.ToLower().Contains(searchTerm.ToLower()));
+                users = users.Where(x => x.Roles.Select(y => y.RoleId).Contains(roleId));
             }
 
             var skip = (pageNo - 1) * recordSize;
@@ -117,7 +117,7 @@ namespace HMS.Areas.Dashboard.Controllers
 
             if (!string.IsNullOrEmpty(roleId))
             {
-                //users = users.Where(a => a.Email.ToLower().Contains(searchTerm.ToLower()));
+                users = users.Where(x => x.Roles.Select(y => y.RoleId).Contains(roleId));
             }
 
             return users.Count();
@@ -221,56 +221,50 @@ namespace HMS.Areas.Dashboard.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> UserRole(string id)
+        public async Task<ActionResult> UserRole(string id) 
         {
             UserRoleViewModel model = new UserRoleViewModel();
-            
-            model.Roles = RoleManager.Roles.ToList();
 
+            model.UserId = id;
             var user = await UserManager.FindByIdAsync(id);
             var userRoleIds = user.Roles.Select(x => x.RoleId).ToList();
-
             model.UserRoles = RoleManager.Roles.Where(x => userRoleIds.Contains(x.Id)).ToList();
+            
+            model.Roles = RoleManager.Roles.Where(x=> !userRoleIds.Contains(x.Id)).ToList();
 
             return PartialView("_UserRole", model);
         }
 
         [HttpPost]
-        public async Task<ActionResult> UserRole(UsersActionViewModel model)
+        public async Task<ActionResult> UserRoleOperation(string userId, string roleId, bool isAssign) 
         {
             JsonResult json = new JsonResult();
-            IdentityResult result = null;
+            
 
-            if (!string.IsNullOrEmpty(model.Id))
+            var user = await UserManager.FindByIdAsync(userId);
+            var role = await RoleManager.FindByIdAsync(roleId); 
+
+            if(user != null && role != null)
             {
-                // edit
-                var user = await UserManager.FindByIdAsync(model.Id);
+                IdentityResult result = null; 
 
-                user.FullName = model.FullName;
-                user.Email = model.Email;
-                user.UserName = model.UserName;
-                user.Country = model.Country;
-                user.City = model.City;
-                user.Address = model.Address;
+                if (isAssign)
+                {
+                    result = await UserManager.AddToRoleAsync(userId, role.Name);
+                }
+                else
+                {
+                    result = await UserManager.RemoveFromRoleAsync(userId, role.Name);
+                }
 
-                result = await UserManager.UpdateAsync(user);
+                
+                json.Data = new { Success = result.Succeeded, Message = string.Join("", result.Errors)};
             }
+
             else
             {
-                // create
-                var user = new HMSUser();
-
-                user.FullName = model.FullName;
-                user.Email = model.Email;
-                user.UserName = model.UserName;
-                user.Country = model.Country;
-                user.City = model.City;
-                user.Address = model.Address;
-
-                result = await UserManager.CreateAsync(user);
+                json.Data = new { Success = false, Message = "Invalid Operation" };
             }
-
-            json.Data = new { Success = result.Succeeded, Message = string.Join(" ", result.Errors) };
 
             return json;
         }

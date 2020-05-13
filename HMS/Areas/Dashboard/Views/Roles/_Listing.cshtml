@@ -15,7 +15,12 @@
             {
                 <tr>
                     <td>@role.Name</td>
-                    <td>@role.Users.Count()</td>
+                    <td>
+                        <a href="@Url.Action("Index", "Users", new { roleId = role.Id})"> 
+                            @role.Users.Count()
+                        </a>
+                        
+                    </td>
                     <td>
                         <button type="button" class="btn btn-primary actionButton" data-href="@Url.Action("Action", "Roles", new { Id = role.Id})" data-toggle="modal" data-target="#actionModal"><i class="fas fa-pen mr-1"></i> Edit</button>
                         <button type="button" class="btn btn-danger actionButton" data-href="@Url.Action("Delete", "Roles", new { Id = role.Id})" data-toggle="modal" data-target="#actionModal"><i class="fas fa-trash-alt mr-1"></i> Delete</button>

@@ -8,9 +8,7 @@
                 <th>Full Name</th>
                 <th>Email</th>
                 <th>User Name</th>
-                <th>Country</th>
-                <th>City</th>
-                <th>Role</th>
+                <th>Total Role</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -21,19 +19,11 @@
                     <td>@user.FullName</td>
                     <td>@user.Email</td>
                     <td>@user.UserName</td>
-                    <td>@user.Country</td>
-                    <td>@user.City</td>
-                    <td>
-                        @*@if (user.Roles != null)
-                        {
-                            @user.Roles.Name
-                        }*@
-                        -
-                    </td>
+                    <td>@user.Roles.Count()</td>
                     <td>
                         <button type="button" class="btn btn-primary actionButton" data-href="@Url.Action("Action", "Users", new { Id = user.Id})" data-toggle="modal" data-target="#actionModal"><i class="fas fa-pen mr-1"></i> Edit</button>
                         <button type="button" class="btn btn-danger actionButton" data-href="@Url.Action("Delete", "Users", new { Id = user.Id})" data-toggle="modal" data-target="#actionModal"><i class="fas fa-trash-alt mr-1"></i> Delete</button>
-                        <button type="button" class="btn btn-info actionButton" data-href="@Url.Action("UserRole", "Users", new { Id = user.Id})" data-toggle="modal" data-target="#actionModal"><i class="fas fa-user-cog mr-1"></i> Roles</button>
+                        <button type="button" class="btn btn-info actionButton" data-href="@Url.Action("UserRole", "Users", new { Id = user.Id})" data-toggle="modal" data-target="#actionModal"><i class="fas fa-user-shield mr-1"></i> Roles</button>
                     </td>
                 </tr>
             }
